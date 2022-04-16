@@ -7,7 +7,8 @@ import (
 )
 
 const (
-	fileEndpoint = "/files"
+	fileEndpoint         = "/files"
+	fileDownloadEndpoint = "/files/download"
 )
 
 func Create() *gin.Engine {
@@ -21,4 +22,5 @@ func Create() *gin.Engine {
 func createRoutes(engine *gin.Engine) {
 	engine.GET(fileEndpoint, middlewares.WithAuthentication(), controller.GetFiles())
 	engine.POST(fileEndpoint, middlewares.WithAuthentication(), controller.UploadMultipleFiles())
+	engine.GET(fileDownloadEndpoint, middlewares.WithAuthentication(), controller.DownloadFile())
 }

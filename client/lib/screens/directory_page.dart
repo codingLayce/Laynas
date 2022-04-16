@@ -2,6 +2,8 @@ import 'package:client/model/file_node.dart';
 import 'package:client/screens/components/directory_view.dart';
 import 'package:flutter/material.dart';
 
+import 'components/app_bar.dart';
+
 class DirectoryPage extends StatelessWidget {
   final FileNode directory;
 
@@ -10,7 +12,7 @@ class DirectoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(directory.name)),
+        appBar: LaynasAppBar.get(directory.name),
         body: DirectoryView(directory: directory)
     );
   }

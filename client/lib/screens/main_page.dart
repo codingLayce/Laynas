@@ -1,4 +1,5 @@
 import 'package:client/model/file_node.dart';
+import 'package:client/screens/components/app_bar.dart';
 import 'package:client/screens/components/directory_view.dart';
 import 'package:client/services/files_manager.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Stockage")
-      ),
+      appBar: LaynasAppBar.get("Stockage"),
       body: FutureBuilder<FileNode>(
         future: FileManager().getFileTree(),
         builder: (context, snapshot) {

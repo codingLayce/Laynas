@@ -12,6 +12,10 @@ import (
 
 const storageRootPath = "C:/Laynas_storage/"
 
+func GetFilesPath(path string) string {
+	return storageRootPath + path
+}
+
 func SaveFiles(ctx *gin.Context) error {
 	form, err := ctx.MultipartForm()
 	if err != nil {
