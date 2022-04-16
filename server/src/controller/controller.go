@@ -5,7 +5,9 @@ import (
 	"laynas/server/src/business/downloadfile"
 	"laynas/server/src/business/getfiles"
 	"laynas/server/src/business/savefiles"
+	"laynas/server/src/model"
 	"net/http"
+	"os"
 )
 
 func DownloadFile() func(ctx *gin.Context) {
@@ -15,6 +17,18 @@ func DownloadFile() func(ctx *gin.Context) {
 			ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 
 			return
+		}
+
+		if resp.IsDir {
+			fileName, err := model.ZipFolder(resp.Path)
+			if err != nil {
+				ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+
+				return
+			}
+			defer os.Remove(fileName)
+
+			ctx.FileAttachment(fileName, ctx.Query("file")+".zip")
 		}
 
 		if resp.HttpCode == http.StatusOK {
